@@ -4,9 +4,11 @@
  */
 package GUIComponents;
 
-import Connection.ConnPoint;
+import Connection.DataTypes;
+
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.SourceDataLine;
 
@@ -81,7 +83,7 @@ public class SoundPlayer implements Runnable, DataWatcher, SoundWatcher {
 
     @Override
     public void fireDataThrough(Object o, int typeOfData) {
-        if(typeOfData == ConnPoint.SOUND_DATA_ID){
+        if(typeOfData == DataTypes.SOUND_DATA_ID){
 //            appendToQueue((byte[])o);
             lazyPrint("Writing to sound."+((byte[])o).length);
             appendToQueue((byte[])o);

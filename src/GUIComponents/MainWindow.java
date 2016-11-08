@@ -12,12 +12,15 @@ package GUIComponents;
 
 import Connection.ChatException;
 import Connection.ConnPoint;
+import Connection.DataTypes;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -442,7 +445,7 @@ public class MainWindow extends javax.swing.JFrame implements DataWatcher {
     
     @Override
     public void fireDataThrough(Object o, int typeOfData){
-        if(typeOfData == ConnPoint.TEXT_ID) {
+        if(typeOfData == DataTypes.TEXT_ID) {
 //            byte[] data = (byte[]) o;
             String s = (String)o;
 //            for(int n=0; n < data.length; n+=2){

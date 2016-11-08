@@ -110,6 +110,7 @@ public class SoundControl {
             
             _view = new SoundPresenter();
             _dataCtl = new DataControl();
+            _dataCtl.addDataWatcher(_view);
             _dataCtl.setFrequency(_conf.getSamplingFrequency());
             JFrame test = new JFrame();
             test.add(_view);
@@ -122,7 +123,6 @@ public class SoundControl {
             _play = new SoundPlayer(_output, _audioFormat);
             _play.setEnableSelf(_enableSelf);
             _cap.addSoundWatcher(_play);
-            _cap.addSoundWatcher(_view);
             _cap.addSoundWatcher(_dataCtl);
             _playThread = new Thread(_play);
             _capThread = new Thread(_cap);

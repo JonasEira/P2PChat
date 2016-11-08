@@ -90,12 +90,12 @@ public class ReceiveSocketThreadObject implements Runnable {
 
             try {
                 data = _din.readByte();
-                if((int)data == ConnPoint.SOUND_DATA_ID){
+                if((int)data == DataTypes.SOUND_DATA_ID){
 //                    System.out.print("Reading sound ");
-                    handleRead(ConnPoint.SOUND_DATA_ID);
-                } else if((int)data == ConnPoint.TEXT_ID){
+                    handleRead(DataTypes.SOUND_DATA_ID);
+                } else if((int)data == DataTypes.TEXT_ID){
 //                    System.out.print("Reading text ");
-                    handleRead(ConnPoint.TEXT_ID);
+                    handleRead(DataTypes.TEXT_ID);
                 } 
             } catch (IOException ex) {
                 printl("IOEx - ReceiveThreadLoop");
@@ -150,7 +150,7 @@ public class ReceiveSocketThreadObject implements Runnable {
 
     private void handleRead(int typeOfData) {
         try {
-            if(typeOfData == ConnPoint.TEXT_ID){
+            if(typeOfData == DataTypes.TEXT_ID){
                 int lengthToRead = (int)_din.readShort();
 //                System.out.println(lengthToRead + " bytes.");
                 String s = _conn.getName() + ": ";

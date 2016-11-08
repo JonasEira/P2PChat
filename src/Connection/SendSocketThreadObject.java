@@ -37,7 +37,7 @@ public class SendSocketThreadObject implements Runnable {
                 printl("Send text!!");
                 int len = s.length()*2;
                 byte[] data = new byte[len + 3];
-                data[0] = (byte)ConnPoint.TEXT_ID;
+                data[0] = (byte)DataTypes.TEXT_ID;
                 data[1] = (byte)(len >> 8 & 0xFF);
                 data[2] = (byte)(len & 0xFF);
                 
@@ -64,7 +64,7 @@ public class SendSocketThreadObject implements Runnable {
 //            printl("Passing here.");
             byte[] tmp = new byte[data.length + 3];
             
-            tmp[0] = (byte)_p.SOUND_DATA_ID;
+            tmp[0] = (byte)DataTypes.SOUND_DATA_ID;
             tmp[1] = (byte)(data.length >> 8 & 0xFF);
             tmp[2] = (byte)(data.length & 0xFF);
             for(int n = 0; n < data.length; n++){
