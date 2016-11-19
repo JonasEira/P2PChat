@@ -33,18 +33,18 @@ public class SoundControl {
     private Thread _playThread;
     private boolean _enableSelf;
     private Configuration _conf;
-    private float sampleRate;
+    private float _sampleRate;
+	private int _frameSize;
     
     SoundControl(Configuration conf) {
         _conf = conf;
-        
         _audioFormat = makeFormat();
-        init();
+        startRecording();
     }
     private AudioFormat makeFormat(){
         AudioFormat.Encoding enc = AudioFormat.Encoding.PCM_SIGNED;
 //        sampleRate = (float)Math.pow(2,Math.ceil(Math.log(_conf.getSamplingFrequency())/Math.log(2)));
-        sampleRate = _conf.getSamplingFrequency();
+        _sampleRate = _conf.getSamplingFrequency();
         
         int sampleSizeInBits = 16;
         int channels = 1;
@@ -53,7 +53,7 @@ public class SoundControl {
 //        int frameSize = 2;
         _enableSelf = false;
         System.out.println("Makeformat");
-        return new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
+        return new AudioFormat(_sampleRate, sampleSizeInBits, channels, signed, bigEndian);
 //        return new AudioFormat(enc, sampleRate, sampleSizeInBits, channels, frameSize, sampleRate, bigEndian);
     }
     public void stopRecording(){
@@ -81,7 +81,7 @@ public class SoundControl {
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
 
     }
-    private void init() {
+    private void startRecording() {
         //Check if the line format is supported.
         DataLine.Info targetInfo = new DataLine.Info(TargetDataLine.class, _audioFormat);
         
@@ -118,8 +118,8 @@ public class SoundControl {
             test.setVisible(true);
             test.pack();
             Configuration.centerWindow(test);
-            
-            _cap = new SoundCapturer(_input, _audioFormat);
+            _frameSize = _conf.getFFTlength();
+            _cap = new SoundCapturer(_input, _audioFormat, _frameSize);
             _play = new SoundPlayer(_output, _audioFormat);
             _play.setEnableSelf(_enableSelf);
             _cap.addSoundWatcher(_play);

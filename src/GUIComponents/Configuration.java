@@ -17,22 +17,51 @@ import javax.swing.JFrame;
 public class Configuration {
     private ArrayList<ConnPoint> _hostList;
     private int _samplingFrequency;
+	private double[] _tones;
+	private int _fftLength;
     
     public static enum modes{
         Client,
         Server
     };
     
+    public static enum tones{
+    	C, D, E, F, G, A, B
+    }
+    
     public Configuration(){
         _hostList = new ArrayList();
         _samplingFrequency = 22050;
+        _tones = genTones(440.0);
+        _fftLength = 2048;
     }
     
-    void setSamplingFrequency(int i) {
+    private double[] genTones(double baseFreq) {
+		double[] tonesFreq = new double[8];
+		double[] tonesStep = new double[]{9.0/8.0, 9.0/8.0, 256.0/243.0, 9.0/8.0, 9.0/8.0, 9.0/8.0, 256.0/243.0  };
+		tonesFreq[0] = baseFreq*(9.0/8.0)*(256.0/243.0); 
+		int n = 1;
+		while(n < 8){
+			tonesFreq[n] = tonesFreq[n-1]*tonesStep[n-1];
+			System.out.println(tonesFreq[n-1]);
+			n++;
+		}
+		System.out.println(tonesFreq[n-1]);
+		
+		return tonesFreq.clone();
+	}
+
+	void setSamplingFrequency(int i) {
         _samplingFrequency = i;
     }
      int getSamplingFrequency() {
         return _samplingFrequency;
+    }
+    void setFFTlength(int i){
+    	_fftLength = i;
+    }
+    int getFFTlength(){
+    	return _fftLength;
     }
     public void addServer(String name, int port) {
         ConnPoint tmpConnPoint = new ConnPoint();

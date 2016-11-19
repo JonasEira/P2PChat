@@ -280,7 +280,7 @@ public class DataControl implements SoundWatcher {
 			while (!_stopSignal) {
 				while (_runOnceSignal == false) {
 					try {
-						Thread.currentThread().sleep(25);
+						Thread.sleep(25);
 					} catch (InterruptedException ex) {
 						System.out.println("InterruptedDFT");
 					}
