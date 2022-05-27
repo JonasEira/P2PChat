@@ -9,7 +9,6 @@ import GUIComponents.Configuration;
 import GUIComponents.Configuration.modes;
 import GUIComponents.DataWatcher;
 import GUIComponents.MainWindow;
-import com.sun.corba.se.spi.activation._ServerImplBase;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
